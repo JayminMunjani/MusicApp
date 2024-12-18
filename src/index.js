@@ -9,23 +9,29 @@ import connectDB from './db/index.js';
 import { models, typeDefs, resolvers } from "./shcema/index.js";
 import jwt from "jsonwebtoken";
 import { GraphQLError } from 'graphql';
+import loginRouter from './Routes/Login/login.js';
 
 dotenv.config();
 
-// Create Express and HTTP server
 const app = express();
 const httpServer = http.createServer(app);
 
-// Create Apollo Server
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
+app.use(express.json());
+
+app.use('/api/auth', loginRouter);
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
 });
 
-// Start the server
 async function startServer() {
-  // Connect to MongoDB
   await connectDB();
 
   await server.start();

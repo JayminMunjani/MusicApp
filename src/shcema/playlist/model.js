@@ -24,4 +24,6 @@ const playlistSchema = mongoose.Schema({
     },
 });
 
+playlistSchema.index({ userId: 1, name: 1 }, { unique: true });
+
 export const Playlist = new mongoose.model("playlist", playlistSchema);

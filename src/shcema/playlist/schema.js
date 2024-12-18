@@ -12,7 +12,7 @@ export const playlistSchema = `
         id: ID
         title: String
         artist: String
-        duration: String
+        duration: Number
         url: String
     }
 
@@ -20,7 +20,7 @@ export const playlistSchema = `
         id: String
         title: String
         artist: String
-        duration: String
+        duration: Number
         url: String
     }
 

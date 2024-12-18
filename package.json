@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apollo/server": "^4.9.5",
+    "axios": "^1.7.9",
     "babel-node": "^0.0.1-security",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",

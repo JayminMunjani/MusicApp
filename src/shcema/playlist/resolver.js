@@ -9,10 +9,7 @@ export const playlistQuery = {
                 userId: me?.id,
                 isDeleted: false
             });
-            return {
-                data: playlists,
-                count: playlists.length
-            };
+            return playlists;
         } catch (error) {
             throw new GraphQLError(error);
         }
@@ -34,6 +31,17 @@ export const playlistQuery = {
 export const playlistMutation = {
     createPlaylist: combineResolvers(isAuthenticated, async (_, { input }, { me, models }) => {
         try {
+            // Check if playlist with same name already exists for this user
+            const existingPlaylist = await models?.Playlist.findOne({
+                name: input.name,
+                userId: me?.id,
+                isDeleted: false
+            });
+
+            if (existingPlaylist) {
+                throw new GraphQLError('A playlist with this name already exists');
+            }
+
             const playlist = await models?.Playlist.create({
                 ...input,
                 userId: me?.id

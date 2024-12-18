@@ -68,7 +68,6 @@ export const userMutation = {
 				extensions: { code: "BAD_USER_INPUT" },
 			});
 
-		user.save();
 		return {
 			token: generateToken(user, "8h"),
 			user: user,
